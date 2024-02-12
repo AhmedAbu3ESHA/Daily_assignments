@@ -1,0 +1,23 @@
+public class Main {
+    public static void main(String[] args) {
+        String s = ("ah22dsl4ds4");
+        String[] st=new String[]{};
+        StringBuilder sum =new StringBuilder();
+        int result=0;
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                sum.append(s.charAt(i));
+            }
+            else {
+                sum.append(" ");
+            }
+            for (int j = 0; j < st.length; j++) {
+                if (!st[i].isEmpty()) {
+                    result=Integer.parseInt(st[i]);
+                    result+=result;
+                }
+            }
+            
+        }
+System.out.println(result);
+        }}
