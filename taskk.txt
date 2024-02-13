@@ -1,0 +1,86 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class App9 {
+    public static void main(String[] args)
+    {
+        String s="i love android and java.java is most popular language.android is key to mobile development.";
+        int w=0;
+        String [] phrases=s.split("\\.");
+        List<String> phra =Arrays.asList(phrases);
+        String [] splitedphrases;
+        String m = s.replaceAll("\\."," ");
+        String[] word = m.split(" ");
+        ArrayList<Integer> weight = new ArrayList<>();
+        ArrayList<Integer> maxweight = new ArrayList<>();
+        List<String> freq =Arrays.asList(word);
+        for (int j = 0; j < freq.size(); j++) {
+            weight.add(Collections.frequency(freq,freq.get(j))) ;
+        }
+        for (int i = 0; i < phra.get(i).length(); i++) {
+         if(phra.get(i).contains(freq.get(i)))
+         {
+             w=w+weight.get(i);
+         }
+            System.out.println(w);
+        }
+
+       // System.out.println(weight);
+
+}}
+////////
+public class Tryyyyy {
+//    import java.util.*;
+//
+//public class Main {
+//    public static void main(String[] args) {
+////        String s = "I love java I Love Backend.java is most popular.android is key to mobile development.";
+//////        String m = s.replaceAll("\\."," ");
+//////        String[] result = m.split(" ");
+//////
+//////        for (int i = 0; i < result.length; i++) {
+//////            System.out.println("The  length of the word " + result[i] + " is: " + result[i].length());
+//////        }
+//////        String x= "I love java I Love Backend.java is most popular.android is key to mobile development. ";
+//////        String [] res = x.split(" ");
+//////        for (int i = 0; i < res.length; i++) {
+//////            System.out.println("The  length of the word "+ result[i]+" is: "+result[i].length());
+//////        }
+//
+//        String s="i love android and java.java is most popular language.android is key to mobile development.";
+//        String [] phrases=s.split("\\.");
+//        String m = s.replaceAll("\\."," ");
+//        String[] word = m.split(" ");
+//        ArrayList<Integer> weight = new ArrayList<>();
+//        List<String> words = Arrays.asList(word);
+//        HashMap <String,Integer> weightOfWords=new HashMap<>();
+//        for (int j = 0; j < words.size(); j++) {
+//            if (!words.contains(word[j])) {
+//                weight.add(Collections.frequency(words, words.get(j)));
+//                weightOfWords.put(words.get(j), weight.get(j));
+//            System.out.println("weight of word "+words.get(j)+" is "+weight.get(j));
+//            }
+//        }
+//        System.out.println("==========================================");
+//        System.out.println(phrases[0]);
+//        String x=phrases[0];
+//        String[] xWords = m.split(" ");
+//        List<String> xWeight= Arrays.asList(xWords);
+//        int sum =0;
+//        for (Map.Entry<String, Integer> entry :weightOfWords.entrySet()) {
+//            sum+=entry.getValue();
+//
+//        }
+//        System.out.println("the sum"+sum);
+////
+////        String y=phrases[1];
+////        String[]yWords = m.split(" ");
+////        List<String> yWeight= Arrays.asList(xWords);
+////
+//
+//    }
+//}
+}
+
