@@ -1,0 +1,7 @@
+
+ahmed  score 3
+mohamed  score 2
+ali score 3
+mahmoud score 1
+tamer  score 3
+b1  score 2
