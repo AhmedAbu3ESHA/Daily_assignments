@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 import java.util.Map;
 ///program with IOFILES
-public class Main {
+public class Main4 {
     public static void main(String[] args) {
         // if (inputStatement.isEmpty()) return;
         Scanner input=new Scanner(System.in);
@@ -125,13 +125,20 @@ public class Main {
                         order.add(keys.get(i));
                     }
                     statmentsAL.retainAll(order);
-                    order.clear();
-                    for (int i = 0; i < statmentsAL .size(); i++) {
-                        bufferedWriter.write(statmentsAL.get(i));
-                        bufferedWriter.newLine();
+                    //System.out.println(order);
+                    System.out.println(statmentsAL);
+                    if (statmentsAL.isEmpty()){
+                        Filesdifferentpercentages.delete();
+                        break;
                     }
-                    Filesdifferentpercentages.length() == 0
-
+                    else
+                    {
+                        order.clear();
+                        for (int i = 0; i < statmentsAL .size(); i++) {
+                            bufferedWriter.write(statmentsAL.get(i));
+                            bufferedWriter.newLine();
+                        }
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -162,4 +169,3 @@ public class Main {
     }
 
 }
-
