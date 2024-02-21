@@ -1,0 +1,49 @@
+1-journal 2-balance sheet  3-transactions count 4-accounts names with highest balances 5-recovered transactions count
+
+enter type : 1
+
+transaction type:credit
+amount:2000
+account:1234567
+holder: given automatically
+
+transaction type:debit
+amount:1000
+account:1234567
+holder:hany
+
+transaction type:exit
+
+------------------------------------
+
+1-journal 2-balance sheet  3-transactions count 4-accounts names with highest balances 5-recovered transactions count
+
+enter type : 2
+ 
+----------balance sheet---------
+account:1234567
+balance:1000
+
+account:32456756
+balance:2000
+------------------------------------
+
+1-journal 2-balance sheet  3-transactions count 4-accounts names with highest balances 5-recovered transactions count
+
+enter type:3
+transactions count:200
+------------------------------------
+1-journal 2-balance sheet  3-transactions count 4-accounts names with highest balances 5-failed transactions count
+
+enter type:4
+
+account:1234567  holder:hany  balance:2000
+--------------------------------------
+1-journal 2-balance sheet  3-transactions count 4-accounts names with highest balances 5-failed transactions count
+
+enter type:5
+failed transactions:20
+
+
+
+
