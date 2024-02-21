@@ -1,0 +1,11 @@
+name: ali
+accountNumber: 123
+balance: 12000
+
+name: mai
+accountNumber: 234
+balance: 15000
+
+name: maha
+accountNumber: 345
+balance: 2000
