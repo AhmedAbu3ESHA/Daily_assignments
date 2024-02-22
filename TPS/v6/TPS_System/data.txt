@@ -1,0 +1,32 @@
+name: ali
+accountNumber: 123
+balance: 15000.0
+----
+name: mai
+accountNumber: 234
+balance: 14900.0
+----
+name: maha
+accountNumber: 345
+balance: 2000.0
+----
+name: mah
+accountNumber: 34
+balance: 189000.0
+----
+name: ahmed
+accountNumber: 1230
+balance: 44.0
+----
+name: aaa
+accountNumber: 12369
+balance: 1100.0
+----
+name: dfdf
+accountNumber: 44545
+balance: 1000.0
+----
+name: fgf
+accountNumber: 222
+balance: 4444.0
+----
