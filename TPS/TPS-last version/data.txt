@@ -1,0 +1,16 @@
+name: Ali-mohamed
+accountNumber: 12345678
+balance: 16000.0
+----
+name: Mai-ahmed
+accountNumber: 89101112
+balance: 45371.0
+----
+name: Maha-mohamed
+accountNumber: 13141516
+balance: 2900.0
+----
+name: ahmed-mohamed
+accountNumber: 12345696
+balance: 12000.0
+----
