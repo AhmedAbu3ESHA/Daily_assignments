@@ -1,0 +1,19 @@
+SELECT count(*) as NUMBER_OF_EMPLOYES,name
+FROM emplyees inner join debartments
+on emplyees.department_id =debartments.department_id
+group by name
+having count(*)>1;
+
+SELECT count(*) as  NUMBER_OF_EMPLOYES,name
+FROM emplyees inner join debartments
+on emplyees.department_id =debartments.department_id
+group by name
+having count(*)>=1;
+
+-- NESTED QUERY NEED EMPLOYEES IN DEVELOPMENT 
+SELECT first_name,last_name
+FROM emplyees
+where department_id in (select department_id from debartments where name in('development','sales'));
+
+
+SELECT * FROM debartments;
