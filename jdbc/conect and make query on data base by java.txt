@@ -1,5 +1,6 @@
 // records in mobile explain this 5 arts
 //and in nemr drive
+//data base in sql work bench
 
 //// 1- output is one row so put resultSet.next(); in while loop
 import java.sql.*;
