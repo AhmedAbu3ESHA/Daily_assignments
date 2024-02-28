@@ -1,0 +1,351 @@
+// records in mobile explain this 5 arts
+//and in nemr drive
+
+//// 1- output is one row so put resultSet.next(); in while loop
+import java.sql.*;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        System.out.println("Hello world!");
+
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        try {
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+            //creat new statment for taking query
+            Statement st = con.createStatement();
+            //writ query
+            ResultSet resultSet=st.executeQuery("select * from emplyees");
+            //read row by row
+            resultSet.next();
+// output is one row so put resultSet.next(); in while loop
+            System.out.println(resultSet.getInt("emplyee_id")+" "+resultSet.getString("first_name"));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2-use while
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        System.out.println("Hello world!");
+
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+//put (--) after try becase we ned to close all conection after try
+or if try not work
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+            //creat new statment for taking query
+            Statement st = con.createStatement();
+            //writ query
+            ResultSet resultSet = st.executeQuery("select first_name as name from emplyees");)
+        {
+            //read row by row
+            while ( resultSet.next() ) {
+// output is one row so put resultSet.next(); in while loop
+                System.out.println(resultSet.getString("name"));
+            }
+
+        }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+///////////////////////////////////////////////////////////////////////////////////////////////
+3- other query (prpared statement)
+// use when we get one input from user
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        System.out.println("Hello world!");
+        Scanner s = new Scanner(System.in);
+        System.out.println("enter salary");
+        int salary = s.nextInt();
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             //creat new prepared statment for taking query
+             PreparedStatement st = con.prepareStatement("select * from emplyees where salary>?");) {
+            st.setInt(1, salary);
+            try (ResultSet resultSet = st.executeQuery();) {
+                //read row by row
+                while (resultSet.next()) {
+// output is one row so put resultSet.next(); in while loop
+                    System.out.println(resultSet.getString("first_name")+" "+resultSet.getInt("salary"));
+                }
+            } catch (Exception e) {
+
+            }
+
+        } catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+4 other query (prpared statement)
+// use when we get 2input from user
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        System.out.println("Hello world!");
+        Scanner s = new Scanner(System.in);
+        System.out.println("enter salary");
+        int salary = s.nextInt();
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             //creat new prepared statment for taking query
+             PreparedStatement st = con.prepareStatement("select * from emplyees where salary>? and last_name=?");) {
+            st.setInt(1, salary);
+            st.setString(2, "nemr");
+            try (ResultSet resultSet = st.executeQuery();) {
+                //read row by row
+                while (resultSet.next()) {
+// output is one row so put resultSet.next(); in while loop
+                    System.out.println(resultSet.getString("first_name")+" "+resultSet.getInt("salary"));
+                }
+            } catch (Exception e) {
+
+            }
+
+        } catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//insertion in table
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+//        System.out.println("Hello world!");
+//        Scanner s = new Scanner(System.in);
+//        System.out.println("enter salary");
+//        int salary = s.nextInt();
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             //creat new prepared statment for taking query
+             PreparedStatement st = con.prepareStatement("insert into debartments(name) values(?)",Statement.RETURN_GENERATED_KEYS);) {
+            st.setString(1, "control");
+           int rows =st.executeUpdate();
+            System.out.println(rows);
+
+        } catch(SQLException e){
+            }
+
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+5- retrive last primary key
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+//        System.out.println("Hello world!");
+//        Scanner s = new Scanner(System.in);
+//        System.out.println("enter salary");
+//        int salary = s.nextInt();
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        Connection con=null;
+        try{//creat new prepared statment for taking query
+            ///prevent adding if any operation not done
+             con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             PreparedStatement st = con.prepareStatement("insert into debartments(name) values(?)",Statement.RETURN_GENERATED_KEYS);
+             st.setString(1, "retal");
+            //دي بتوقف الcommit عشان انا بضيفها بايدي في الكود
+            con.setAutoCommit(false);
+            int rows =st.executeUpdate();
+            System.out.println(rows);
+            ResultSet resultSet= st.getGeneratedKeys();
+
+            if(resultSet.next()){
+                int departmentID=resultSet.getInt(1);
+                PreparedStatement empst = con.prepareStatement("insert into emplyees(first_name,last_name,salary,department_id) values(?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                empst.setString(1,"moharm");
+                empst.setString(2,"mohamed");
+                empst.setInt(3,4000);
+                empst.setInt(4,departmentID);
+                //دي بتوقف الcommit عشان انا بضيفها بايدي في الكود
+                con.setAutoCommit(false);
+                int emprows=empst.executeUpdate();
+
+                //print id of last emp added
+                ResultSet empID= empst.getGeneratedKeys();
+                if(empID.next()){
+                    System.out.println(empID.getInt(1));
+                }
+                ///prevent adding if any operation not done
+                con.commit();
+            }else{//prevent adding any thing if any error happend
+                 con.rollback();}
+
+        } catch(SQLException e){
+            try {
+                con.commit();
+            if (con!=null){
+
+            }
+            } catch (Exception ex) {
+                con.rollback();
+            }
+
+        }
+
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+6-عشان امنع اي كويريز مرتبطه ببعضها ان في واحده تتنفذ والتانيه لا كدا بتاكد ان الاتنين اتعملوا بالتالي يضافوا مع بعض
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+//        System.out.println("Hello world!");
+//        Scanner s = new Scanner(System.in);
+//        System.out.println("enter salary");
+//        int salary = s.nextInt();
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        Connection con=null;
+        try{//creat new prepared statment for taking query
+            ///prevent adding if any operation not done
+             con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             PreparedStatement st = con.prepareStatement("insert into debartments(name) values(?)",Statement.RETURN_GENERATED_KEYS);
+             st.setString(1, "retal");
+            //دي بتوقف الcommit عشان انا بضيفها بايدي في الكود
+            con.setAutoCommit(false);
+            int rows =st.executeUpdate();
+            System.out.println(rows);
+            ResultSet resultSet= st.getGeneratedKeys();
+
+            if(resultSet.next()){
+                int departmentID=resultSet.getInt(1);
+                PreparedStatement empst = con.prepareStatement("insert into emplyees(first_name,last_name,salary,department_id) values(?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                empst.setString(1,"moharm");
+                empst.setString(2,"mohamed");
+                empst.setInt(3,4000);
+                empst.setInt(4,departmentID);
+                //دي بتوقف الcommit عشان انا بضيفها بايدي في الكود
+                con.setAutoCommit(false);
+                int emprows=empst.executeUpdate();
+
+                //print id of last emp added
+                ResultSet empID= empst.getGeneratedKeys();
+                if(empID.next()){
+                    System.out.println(empID.getInt(1));
+                }
+                ///prevent adding if any operation not done
+                con.commit();
+            }else{//prevent adding any thing if any error happend
+                 con.rollback();}
+//ده عشان لو بعد ده في querse تانيه يتعملها لهاauto commit
+            //لكن اي حاجه قبل كده مش هيتعملها auto ؤخةةهف
+            con.setAutoCommit(true);
+        } catch(SQLException e){
+            try {
+                if (con!=null){
+                con.commit();
+            }
+            } catch (Exception ex) {
+                con.rollback();
+            }
+
+        }
+
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+//        System.out.println("Hello world!");
+//        Scanner s = new Scanner(System.in);
+//        System.out.println("enter salary");
+//        int salary = s.nextInt();
+        //String url = "jdbc:mysql://localhost/name-of-data-base-scema";
+        //make conect with database
+        Connection con=null;
+        try{//creat new prepared statment for taking query
+            ///prevent adding if any operation not done
+             con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             PreparedStatement st = con.prepareStatement("insert into debartments(name) values(?)");
+             //can use PreparedStatement more thane one time
+             st.setString(1, "test1");
+            st.executeUpdate();
+             st.setString(1, "test2");
+            st.executeUpdate();
+            st.setString(1, "test3");
+            st.executeUpdate();
+
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////
+patch update
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
+import java.sql.*;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+
+        Connection con=null;
+        try{//creat new prepared statment for taking query
+            ///prevent adding if any operation not done
+             con = DriverManager.getConnection("jdbc:mysql://localhost/hr", "root", "root123");
+             PreparedStatement st = con.prepareStatement("insert into debartments(name) values(?)");
+             //can use PreparedStatement more thane one time
+             st.setString(1, "test1");
+            st.addBatch();
+             st.setString(1, "test2");
+            st.addBatch();
+            st.setString(1, "test3");
+            st.addBatch();
+
+           int[] rowes= st.executeBatch();
+            System.out.println(Arrays.toString(rowes));
+            
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+
