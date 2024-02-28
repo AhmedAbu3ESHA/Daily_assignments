@@ -1,0 +1,63 @@
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner s=new Scanner(System.in);
+        boolean rebeat=true;
+        while(rebeat==true) {
+            System.out.println("enter code");
+            int code = s.nextInt();
+            System.out.println("enter pass");
+            String pass = s.next();
+
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost/emp", "root", "root123");
+                 PreparedStatement st = con.prepareStatement("select * from empinfo where code=? and pass=?");
+                 ) {
+                st.setInt(1, code);
+                st.setString(2, pass);
+                try (ResultSet resultSet = st.executeQuery();) {
+                    //read row by row
+                    if (resultSet.next() == true) {
+                        System.out.println("transaction ");
+                        rebeat=false;
+                    } else {
+                        System.out.println("you want to add new user ?[y,n]");
+                        String options = s.next();
+                        if (options.equalsIgnoreCase("y")||options.equalsIgnoreCase("yes")) {
+                            try (Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost/emp", "root", "root123");
+                                 PreparedStatement creatacc = con.prepareStatement("insert into empinfo(code,pass) values(?,?)", Statement.RETURN_GENERATED_KEYS);) {
+                                //creat new acc
+                                System.out.println("put emp code");
+                                code = s.nextInt();
+                                creatacc.setInt(1, code);
+                                System.out.println("put new pass");
+                                pass = s.next();
+                                creatacc.setString(2, pass);
+                                creatacc.execute();
+                                System.out.println("user added");
+                                break;
+                            }catch(SQLException e){
+                                System.out.println(e.getMessage());
+                            }
+
+                        }else if(options.equalsIgnoreCase("n")||options.equalsIgnoreCase("no")){
+                            System.out.println("try valied data");
+                         continue;}
+                        else{
+                            System.out.println("not an option");
+                        }
+
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+    }
