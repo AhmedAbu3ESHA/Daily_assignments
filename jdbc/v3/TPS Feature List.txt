@@ -1,0 +1,33 @@
+Bank TPS Feature List:
+1-secured login
+
+2-Accounts Entry and Editing (account number,type(savings,current),balance)
+ 2.1-if account is savings , 10% interest is added monthly to account balance initiated by user one time per month
+ 2.2-balance is edited only if no transactions is done yet on this account
+
+3-Accounts Holder Entry and Editing (name,type,contact)
+ 3.1-type is updated with stable or instable (instable if balance is less than half)
+     default is stable
+
+4-transactions entry
+ 4.1-app saves transactions updating the balance with the transaction amount
+ 4.2-let the app flows seamlessly without blocking the user (using threads); consider the case if next transaction is done on the same account(here must be blocking)
+ 4.3-app saves failed transactions(according to amount)
+
+5-transactions view
+ 5.1-user enters account , start date and end date
+ 5.2-app shows all transactions sorted by date and finally shows starting balance and ending  balance
+
+6-balances sheet
+ 6.1-user selects sorting by balance or name descendingly or ascendingly
+    6.1.1-if sorting by balance ; user enters percentage ex:(5% ,10%) then app prints balance sheet from highest to lowest according to percentage
+
+7-transactions count view (normal and failed) by date
+
+-non functional requirements
+-app should encourage horizontal ui
+-smooth ui (minimal keyboard clicks or enters)
+-each team selects performance criteria and aim for it 
+ex:memory-processing-network(roundtrips or throughput)
+  
+    
