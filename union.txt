@@ -1,0 +1,119 @@
+else if (selectedTransaction.equals("6") || selectedTransaction.equalsIgnoreCase("transactions view")) {
+                                ArrayList<Double> sum =new ArrayList<>();
+                                double lastbalance=0;
+                                double startball=0;
+                                double cr= 0;
+                                double acBalance= 0;
+                                double deb= 0;
+                                double cre = 0;
+                                double dr=0;
+                                System.out.println("Enter account number:");
+                                int accountNumber = s.nextInt();
+
+                                System.out.println("Enter start date (yyyy-MM-dd):");
+                                String startDate = s.next();
+
+                                System.out.println("Enter end date (yyyy-MM-dd):");
+                                String endDate = s.next();
+
+                                try (PreparedStatement st4 =
+                                             con.prepareStatement("SELECT * FROM transactions WHERE AccNum = ? AND TransDate BETWEEN ? AND ?")) {
+                                    st4.setInt(1, accountNumber);
+                                    st4.setString(2, startDate);
+                                    st4.setString(3, endDate);
+                                    ResultSet rs = st4.executeQuery();
+                                    System.out.println("Transactions for Account " + accountNumber + " between " + startDate + " and " + endDate + ":");
+
+                                    while (rs.next()) {
+                                        System.out.println("Type: " + rs.getString("TransType") +"  "+"Amount: " + rs.getDouble("TransAmount")+"  "+ "Date: " + rs.getString("TransDate"));
+                                    }
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                try (
+                                        PreparedStatement st2 = con.prepareStatement("select Balance from account where AccNum=?");
+                                ) {
+
+                                    st2.setInt(1, accountNumber);
+                                    ResultSet res = st2.executeQuery();
+                                    while(res.next()) {
+                                        acBalance = res.getDouble("Balance");
+                                    }
+                                }catch (Exception e) {
+                                    System.out.println(e.getMessage());
+                                }
+                                try (Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost/banktps", "root", "root123");
+                                     PreparedStatement st4 =
+                                             con3.prepareStatement(
+                                                     "SELECT SUM(TransAmount) as sum\n" +
+                                                             "FROM transactions\n" +
+                                                             "WHERE AccNum=? AND TransDate BETWEEN ? \n" +
+                                                             "AND ? AND TransType like 'c%' AND TransStatus=1\n" +
+                                                             "\n" +
+                                                             "union \n" +
+                                                             "SELECT SUM(TransAmount) \n" +
+                                                             "FROM transactions \n" +
+                                                             "WHERE AccNum=? AND TransDate BETWEEN ?\n" +
+                                                             "AND ? AND TransType like 'd%' AND TransStatus=1\n" +
+                                                             "\n" +
+                                                             "union \n" +
+                                                             "SELECT sum(TransAmount) \n" +
+                                                             "FROM transactions \n" +
+                                                             "WHERE AccNum = ? AND TransDate > ?\n" +
+                                                             "AND TransDate <= ? AND TransType like 'c%' AND TransStatus=1\n" +
+                                                             "\n" +
+                                                             "union\n" +
+                                                             "SELECT sum(TransAmount) \n" +
+                                                             "FROM transactions\n" +
+                                                             "WHERE AccNum = ? AND TransDate > ? \n" +
+                                                             "AND TransDate <= ? AND TransType like 'd%' AND TransStatus=1;"
+//                                                     "SELECT SUM(TransAmount) as sum FROM transactions WHERE AccNum=? AND TransDate BETWEEN ? AND ? AND TransType like 'c%' AND TransStatus=1" +
+//                                                             "union SELECT SUM(TransAmount) FROM transactions WHERE AccNum=? AND TransDate BETWEEN ? AND ? AND TransType like 'd%' AND TransStatus=1" +
+//                                                             "union SELECT sum(TransAmount) FROM transactions WHERE AccNum=? AND TransDate>? AND TransDate <= ? AND TransType like 'c%' AND TransStatus=1" +
+//                                                             "union SELECT sum(TransAmount) FROM transactions WHERE AccNum=? AND TransDate>? AND TransDate <= ?  AND TransType like 'd%' AND TransStatus=1;"
+                                                             )) {
+
+
+                                    st4.setInt(1, accountNumber);
+                                    st4.setString(2, startDate);
+                                    st4.setDate(3, Date.valueOf(LocalDate.now()));
+
+                                    st4.setInt(4, accountNumber);
+                                    st4.setString(5, startDate);
+                                    st4.setDate(6, Date.valueOf(LocalDate.now()));
+
+                                    st4.setInt(7, accountNumber);
+                                    st4.setString(8, endDate);
+                                    st4.setDate(9, Date.valueOf(LocalDate.now()));
+                                    
+                                    
+                                    st4.setInt(10, accountNumber);
+                                    st4.setString(11, endDate);
+                                    st4.setDate(12, Date.valueOf(LocalDate.now()));
+
+                                    ResultSet rs = st4.executeQuery();
+
+
+                                    while (rs.next()) {
+                                        sum.add(rs.getDouble("sum"));
+//                                        cre=rs.getDouble("sum");
+//                                        System.out.println(cre);
+//                                        deb= rs.getDouble("sum");
+//                                        System.out.println(deb);
+//                                        cr=rs.getDouble("sum");
+//                                        System.out.println(cr);
+//                                        dr=rs.getDouble("sum");
+//                                        System.out.println(dr);
+                                    }
+                                    System.out.println(sum.get(0)+ "   gfgfh   "+sum.get(1)+"     ghghfgh   ");
+                                    startball=  acBalance-((sum.get(0))-(sum.get(1)));
+                                    System.out.println(startball);
+                                     lastbalance =acBalance-((sum.get(2))-(sum.get(3)));
+                                    System.out.println(lastbalance);
+                                    System.out.println("Balance in "+ startDate +" : " + Math.abs(startball) +"  "+"Balance in "+endDate+" : " + Math.abs(lastbalance));
+
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }
