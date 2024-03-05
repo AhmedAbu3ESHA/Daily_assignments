@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/63854849/where-can-i-find-to-create-new-servlet-file-with-intellij#:~:text=Open%20Intellij%20IDEA%20Settings%20by,Servlet%20in%20the%20Name%20field.
+
+in intilij
+
+control-alt-s
+editor
+file code templets
++
+الكود الي جبته من الurl
+هحطه في المربع بتاعه 
+ ok
