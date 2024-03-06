@@ -1,0 +1,111 @@
+package com.controllers;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.websocket.Session;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Servlet implementation class QuizServlet
+ */
+public class QuizServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	 String[] countries={"egypt","usa","france","uk","russia"};
+	 String[] cities={"cairo","ws","paris","london","moscow"};
+	 ArrayList<String> items=new ArrayList();
+		
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QuizServlet() {
+        super();
+        Collections.addAll(items, "cairo","ws","london","moscow"
+				,"beijing","paris","lebanon");
+	 
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		GameDetails details=(GameDetails) 
+				request.getSession().getAttribute("GameDetails");
+		if(details==null) {
+			details=new GameDetails(0, 0);
+			request.getSession().setAttribute("GameDetails", details);
+		}
+		
+        String action=request.getParameter("action");
+        if(action.equals("start")){
+        	items.clear();
+        	Collections.addAll(items, "cairo","ws","london","moscow"
+    				,"beijing","paris","lebanon");
+            String country="what is the capital of "+countries[details.getIndex()];
+            request.setAttribute("country",country);
+            request.setAttribute("nextEnabled", "");
+            request.setAttribute("items", items);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/quiz.jsp");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }else if(action.equals("next")){
+            
+            String answer=request.getParameter("answer");
+            if(answer.equals(cities[details.getIndex()])) {
+            	details.setScore(details.getScore()+1);
+            	items.remove(answer);
+            }
+            details.setIndex(details.getIndex()+1);
+            request.getSession().setAttribute("index",details.getIndex());
+            if (details.getIndex()< countries.length){
+                String country="what is the capital of "+countries[details.getIndex()];
+                request.setAttribute("country",country);
+                request.setAttribute("items", items);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/quiz.jsp");
+                try {
+                    dispatcher.forward(request,response);
+                } catch (ServletException e) {
+                    throw new RuntimeException(e);
+                }
+            }else{
+                request.setAttribute("score",details.getScore());
+                request.setAttribute("nextEnabled", "disabled");
+                request.getSession().invalidate();
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/quiz.jsp");
+                try {
+                    dispatcher.forward(request,response);
+                } catch (ServletException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+
+        }
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
