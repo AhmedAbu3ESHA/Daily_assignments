@@ -17,7 +17,7 @@
 </tr>
 <c:forEach items="${deps}" var="d">
 <tr>
-<td> ${d.department_id}</td>
+<td> ${d.id}</td>
 <td> ${d.name}</td>
 </tr>
 </c:forEach>

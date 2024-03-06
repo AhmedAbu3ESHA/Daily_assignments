@@ -49,7 +49,7 @@ public class HRServlet extends HttpServlet {
 	            while (resultSet.next()){
 	            	int id=Integer.parseInt(resultSet.getString(1));
 	            	String name=resultSet.getString(2);
-	            	Department dep=new Department(id,name);
+	            	Department dep=new Department(name,id);
 	            	departments.add(dep);
 	            }
 	            return departments;
