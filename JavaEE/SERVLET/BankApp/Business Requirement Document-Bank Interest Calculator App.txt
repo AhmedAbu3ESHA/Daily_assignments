@@ -1,0 +1,26 @@
+Bank Interest Calculator App Requirements
+
+app will be divided into three sections:
+*the first section is "bank certificate calculations" which is as follows
+1-given amount,percentage and year
+ 1.1-app calculates end of period cash that the user will get
+  
+2-given amount ,final amount and percentage
+ 2.1-app calculates number of years the amount will reach final amount 
+ 2.2-app calculates the payback period (number of years at which user will breakeven)
+
+3-given amount,final amount and year
+ 3.1-app calculates percentage that will make user reachs the final amount
+
+4-app should add money tracing for previous calculations
+
+*the second section covers loan payments (consider amortized loans only)
+-app should cover amorized loans
+
+*the third sections covers NPV calculations
+
+(consider moneygeek or investopedia sites)
+
+5-app should gives the user the option to save and load transactions in database when needed
+
+6-(optional) app gives two usages only for unregistered users
