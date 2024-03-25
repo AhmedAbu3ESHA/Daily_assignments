@@ -1,0 +1,8 @@
+add,select,random meals from 3 routs eash root in separet servlet
+
+https//:localhost:8080/meals
+
+https//:localhost:8080/meals/2
+
+
+https//:localhost:8080/meals/random/5
