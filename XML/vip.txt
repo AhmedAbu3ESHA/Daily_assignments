@@ -1,0 +1,1 @@
+use post man to make 4 functions (put ,delet,get,post)useing local host url according to url-pattern in web.xml(servlet) or use url in jax-rs project 
