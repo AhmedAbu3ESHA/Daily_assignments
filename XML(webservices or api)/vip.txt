@@ -1,0 +1,4 @@
+use post man to make 4 functions (put ,delet,get,post)useing local host url according to url-pattern in web.xml(servlet) or use url in jax-rs project 
+
+
+6 records in mobile named xml from 1 to 6 explain this directory projects .and written in 2019 red notbook
