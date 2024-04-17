@@ -1,0 +1,9 @@
+		//update ****************(3)
+//		Instructor instructor = session.get(Instructor.class, 3);
+//		instructor.setLastName("ahmed");
+//		session.persist(instructor);
+		
+		//delete****************************(4)
+		
+		Instructor instructor = session.get(Instructor.class, 3);
+		session.remove(instructor);
