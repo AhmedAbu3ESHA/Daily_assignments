@@ -1,0 +1,20 @@
+    //update customer
+       public void updateCustomer(Customer c){
+       Session session = sessionFactory.getCurrentSession();
+        Customer customer= session.get(Customer.class,1);
+        customer.setFirstName("Ahmed");
+        customer.setLastName("Mosutafa");
+        customer.setEmail("ahmed.mustafa@gmail.com");
+        session.save(c);
+    }
+
+    //delete customer
+       public void deleteCustomer(Customer c){
+       Session session = sessionFactory.getCurrentSession();
+       Customer customer= session.get(Customer.class,1);
+       session.remove(customer);
+   }
+
+
+
+https://www.digitalocean.com/community/tutorials/spring-mvc-hibernate-mysql-integration-crud-example-tutorial
