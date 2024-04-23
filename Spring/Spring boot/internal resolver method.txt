@@ -1,0 +1,11 @@
+@EnableWebMvc
+@Configuration
+public class MyConfig {
+    @Bean
+    public ViewResolver jspViewResolver(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+}
