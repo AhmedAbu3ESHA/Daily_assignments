@@ -1,0 +1,15 @@
+1 Go to github create new repository
+
+2 Copy http URL from github
+
+3 Go to Eclipse --> Right click on project --> Team--> share
+
+4 project--> Create new Git Repo.
+
+5 Go to team--> add to index -->commit and push
+
+6 Right click on Git Repositories push to up stream
+
+7 Paste your http URL of githun which you copy in step 2
+
+8 Enter username and password of github -- > Finish
