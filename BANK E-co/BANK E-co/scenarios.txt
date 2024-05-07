@@ -1,0 +1,22 @@
+Home
+the homepage of a bank serves as the digital gateway for customers to access various banking services and information that includes
+1-the guest views the website
+2- the guest can choose either view the individuals product or the corporate products
+3-the guest can login
+
+------------------------------------------------
+
+Home>login
+1-enter the username and password
+2-the customers will be redirected to the list of products that suits their type
+Acceptance criteria:
+must be a valid username and correct password
+Rejected criteria:
+password must contain 8 characters include letters and numbers and must have at least 1 upper case and must contains a special character
+
+------------------------------------------------
+
+Home>choose catalogue 
+
+- three categories will be listed 1-cards 2-accounts and certificates 3-loans
+- each catalogue has a specific types in each category 
