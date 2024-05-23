@@ -1,0 +1,21 @@
+https://spring.io/guides/gs/securing-web
+
+
+//login Form
+https://www.baeldung.com/spring-security-login
+
+
+//error-handling
+https://www.baeldung.com/spring-security-login-error-handling-localization
+
+
+//security-provider
+https://www.baeldung.com/spring-security-authentication-provider
+
+
+//registration
+https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
+
+
+//registration with api
+https://www.baeldung.com/registration-restful-api
