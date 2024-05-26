@@ -1,0 +1,4 @@
+--JDBint_store_query.sql
+--rp 2014.07.09
+
+SELECT * FROM BCA_INVENTORY WHERE PROD_ID IN ('SKU101', 'SKU102', 'SKU200', 'SKU106');

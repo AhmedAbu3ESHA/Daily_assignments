@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org/ns/ccauthorize"
+            targetNamespace="http://www.example.org/ns/ccauthorize"
+            elementFormDefault="qualified">
+    <xsd:element name="CreditCheckRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="CCNumber" type="xsd:string"/>
+                <xsd:element name="amount" type="xsd:decimal"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="CreditCheckResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="status" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="CreditCheckFault">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="error" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>            
+</xsd:schema>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="MakeGreeting"
+     targetNamespace="http://xmlns.oracle.com/FaultHandlingFramework/SayHello/MakeGreeting"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/FaultHandlingFramework/SayHello/MakeGreeting"
+     xmlns:ns1="http://www.example.org"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://soa12c.example.com:7101/soa-infra/services/default/SayHello!1.0/WSDLs/MakeGreeting.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="MakeGreeting">
+        <plnk:role name="MakeGreetingProvider" portType="client:MakeGreeting"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.example.org" schemaLocation="../Schemas/SayHello.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="MakeGreetingRequestMessage">
+        <wsdl:part name="payload" element="ns1:request"/>
+    </wsdl:message>
+    <wsdl:message name="MakeGreetingResponseMessage">
+        <wsdl:part name="payload" element="ns1:response"/>
+    </wsdl:message>
+    <wsdl:portType name="MakeGreeting">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:MakeGreetingRequestMessage"/>
+            <wsdl:output message="client:MakeGreetingResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MakeGreetingBinding" type="client:MakeGreeting">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="makegreeting_client_ep">
+        <wsdl:port name="MakeGreeting_pt" binding="client:MakeGreetingBinding">
+            <soap:address location="http://soa12c.example.com:7101/soa-infra/services/default/SayHello/makegreeting_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

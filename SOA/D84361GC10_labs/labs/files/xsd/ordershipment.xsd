@@ -1,0 +1,37 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/ns/shippingrules"
+     targetNamespace="http://www.example.org/ns/shippingrules" elementFormDefault="qualified">
+    <xsd:element name="shippinginfo">
+        <xsd:annotation>
+            <xsd:documentation>A sample element</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="shipChoice" type="shipOptionType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="shippingcompany">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="carrier" type="carrierType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="shipOptionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="next_day"/>
+            <xsd:enumeration value="two_day"/>
+            <xsd:enumeration value="five_day"/>
+            <xsd:enumeration value="international"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="carrierType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="RED_SHIPPER"/>
+            <xsd:enumeration value="GREEN_SHIPPER"/>
+            <xsd:enumeration value="BLUE_SHIPPER"/>
+            <xsd:enumeration value="none"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

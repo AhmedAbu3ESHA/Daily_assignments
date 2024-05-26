@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:us="http://www.example.org/ns/updtstock"
+            targetNamespace="http://www.example.org/ns/updtstock"
+            elementFormDefault="qualified">
+  <xsd:element name="UpdateStock" type="us:UpdateStockType"/>
+  
+  <xsd:complexType name="UpdateStockType">
+    <xsd:sequence>
+     <xsd:element name="productId" type="xsd:string" minOccurs="1"/>
+     <xsd:element name="quantity" type="xsd:int" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

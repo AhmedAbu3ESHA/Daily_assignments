@@ -1,0 +1,6 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/ns/asyncdemo"
+     targetNamespace="http://www.example.org/ns/asyncdemo" elementFormDefault="qualified">
+    <xsd:element name="numSecs" type="xsd:int"/>
+    <xsd:element name="outcome" type="xsd:string"/>
+</xsd:schema>

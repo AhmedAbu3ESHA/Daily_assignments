@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org/ns/fulfillment"
+            xmlns:ns0="http://www.example.org/ns/intorder"
+            targetNamespace="http://www.example.org/ns/fulfillment"
+            elementFormDefault="qualified">
+  <xsd:import schemaLocation="internalorder.xsd"
+              namespace="http://www.example.org/ns/intorder"/>
+  <xsd:element name="FulFillmentRequest" type="ns0:orderType">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="FulfillmentResponse" type="fulfillResponseType"/>
+  <xsd:complexType name="fulfillRequestType">
+    <xsd:sequence>
+      <xsd:element name="shipMethod" type="ns0:shipMethodType"/>
+      <xsd:element name="custId" type="xsd:string"/>
+      <xsd:element name="orderId" type="xsd:string"/>
+      <xsd:element name="orderTotal" type="xsd:decimal"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="fulfillResponseType">
+    <xsd:sequence>
+      <xsd:element name="shipStatus" type="shipStatusType"/>
+      <xsd:element name="carrier" type="carrierType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="ShippingRequest" type="shippingRequestType"/>
+  <xsd:complexType name="shippingRequestType">
+    <xsd:sequence>
+      <xsd:element name="orderId" type="xsd:string"/>
+      <xsd:element name="custName" type="xsd:string"/>
+      <xsd:element name="shippingAddress" type="addressType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="addressType">
+    <xsd:sequence>
+      <xsd:element name="street" type="xsd:string"/>
+      <xsd:element name="city" type="xsd:string"/>
+      <xsd:element name="state" type="xsd:string"/>
+      <xsd:element name="zip" type="xsd:string"/>
+      <xsd:element name="country" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="shipStatusType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="completed"/>
+      <xsd:enumeration value="waiting"/>
+      <xsd:enumeration value="none"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="carrierType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="USPS"/>
+      <xsd:enumeration value="UPS"/>
+      <xsd:enumeration value="FedEx"/>
+      <xsd:enumeration value="none"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org/ns/store"
+            targetNamespace="http://www.example.org/ns/store"
+            elementFormDefault="qualified">
+  <xsd:element name="StoreRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="product" type="prodOrderedType"
+                     maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="StoreResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="status" type="prodStatusType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="prodOrderedType">
+    <xsd:sequence>
+      <xsd:element name="prodId" type="xsd:string"/>
+      <xsd:element name="qtyOrdered" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="prodStatusType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="in-stock">
+        <xsd:annotation/>
+      </xsd:enumeration>
+      <xsd:enumeration value="out-of-stock"/>
+      <xsd:enumeration value="fulfilled"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

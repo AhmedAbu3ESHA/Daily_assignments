@@ -1,0 +1,86 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Sep 23 08:42:07 UTC 2014
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CallingProcess"
+         targetNamespace="http://xmlns.oracle.com/FaultHandlingFramework/CallGreeting/CallingProcess"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/FaultHandlingFramework/CallGreeting/CallingProcess"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/FaultHandlingFramework/SayHello/MakeGreeting"
+         xmlns:ns2="http://www.example.org">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/FaultHandlingFramework/CallGreeting/CallingProcess" location="../WSDLs/CallingProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="callingprocess_client" partnerLinkType="client:CallingProcess" myRole="CallingProcessProvider" partnerRole="CallingProcessRequester"/>
+        <partnerLink name="Greeting" partnerLinkType="ns1:MakeGreeting" partnerRole="MakeGreetingProvider"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:CallingProcessRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:CallingProcessResponseMessage"/>
+        <variable name="Invoke_Greeting_process_InputVariable" messageType="ns1:MakeGreetingRequestMessage"/>
+        <variable name="Invoke_Greeting_process_OutputVariable" messageType="ns1:MakeGreetingResponseMessage"/>
+    </variables>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in CallingProcess.wsdl) -->
+        <receive name="receiveInput" partnerLink="callingprocess_client" portType="client:CallingProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+        <assign name="Assign_Request">
+            <copy>
+                <from>$inputVariable.payload/ns2:input</from>
+                <to>$Invoke_Greeting_process_InputVariable.payload/ns2:input</to>
+            </copy>
+        </assign>
+        <invoke name="Invoke_Greeting" bpelx:invokeAsDetail="no" partnerLink="Greeting" portType="ns1:MakeGreeting"
+                operation="process" inputVariable="Invoke_Greeting_process_InputVariable"
+                outputVariable="Invoke_Greeting_process_OutputVariable"/>
+        <assign name="Assign_Response">
+            <copy>
+                <from>$Invoke_Greeting_process_OutputVariable.payload/ns2:result</from>
+                <to>$outputVariable.payload/ns2:result</to>
+            </copy>
+        </assign>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="callingprocess_client" portType="client:CallingProcessCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>

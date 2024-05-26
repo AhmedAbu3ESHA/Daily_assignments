@@ -1,0 +1,17 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/ns/enroll"
+     targetNamespace="http://www.example.org/ns/enroll" elementFormDefault="qualified">
+    <xsd:element name="enrollmentRequest" type="enrollmentType"/>
+    <xsd:element name="enrollmentResponse" type="xsd:string"/>
+    <xsd:element name="enrollmentFault" type="xsd:string"/>
+    <xsd:complexType name="enrollmentType">
+        <xsd:sequence>
+            <xsd:element name="Id" type="xsd:string"/>
+            <xsd:element name="type" type="xsd:string"/>
+            <xsd:element name="student" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="course" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="cardNumber" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="amount" type="xsd:decimal" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

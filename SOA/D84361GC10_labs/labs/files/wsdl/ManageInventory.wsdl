@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageInventory"
+             targetNamespace="http://xmlns.oracle.com/Application1/InStore/ManageInventory"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/Application1/InStore/ManageInventory"
+             xmlns:ns1="http://www.example.org/ns/store"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.example.org/ns/store" schemaLocation="xsd/storeinfo.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="ManageInventoryRequestMessage">
+		<wsdl:part name="payload" element="ns1:StoreRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="ManageInventoryResponseMessage">
+		<wsdl:part name="payload" element="ns1:StoreResponse" />
+	</wsdl:message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the ManageInventory BPEL process -->
+	<wsdl:portType name="ManageInventory">
+		<wsdl:operation name="checkStock">
+			<wsdl:input message="client:ManageInventoryRequestMessage"/>
+		</wsdl:operation>
+  <wsdl:operation name="acquireStock">
+   <wsdl:input message="client:ManageInventoryRequestMessage"/>
+  </wsdl:operation>
+ </wsdl:portType>
+
+	<!-- portType implemented by the requester of ManageInventory BPEL process
+	for asynchronous callback purposes
+	-->
+	<wsdl:portType name="ManageInventoryCallback">
+		<wsdl:operation name="checkStockResponse">
+			<wsdl:input message="client:ManageInventoryResponseMessage"/>
+		</wsdl:operation>
+  <wsdl:operation name="acquireStockResponse">
+   <wsdl:input message="client:ManageInventoryResponseMessage"/>
+  </wsdl:operation>
+ </wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the ManageInventory partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="ManageInventory">
+		<plnk:role name="ManageInventoryProvider">
+			<plnk:portType name="client:ManageInventory"/>
+		</plnk:role>
+		<plnk:role name="ManageInventoryRequester">
+			<plnk:portType name="client:ManageInventoryCallback"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

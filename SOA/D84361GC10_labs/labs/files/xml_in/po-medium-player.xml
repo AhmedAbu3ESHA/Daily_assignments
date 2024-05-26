@@ -1,0 +1,27 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body xmlns:ns0="http://www.example.org/ns/porder">
+      <ns0:PurchaseOrder>
+         <ns0:custID>2</ns0:custID>
+         <ns0:ID>102</ns0:ID>
+         <ns0:payOption>credit</ns0:payOption>
+         <ns0:shipChoice>two_day</ns0:shipChoice>
+         <ns0:status>initial</ns0:status>
+         <ns0:ccType>VISTA</ns0:ccType>
+         <ns0:ccNumber>1234-1234-1234-1234</ns0:ccNumber>
+         <ns0:items>
+            <ns0:item>
+               <ns0:productId>SKU304</ns0:productId>
+               <ns0:productName>Music Player 8Gb</ns0:productName>
+               <ns0:price>140</ns0:price>
+               <ns0:quantity>10</ns0:quantity>
+            </ns0:item>
+            <ns0:item>
+               <ns0:productId>SKU303</ns0:productId>
+               <ns0:productName>Music Player 4Gb</ns0:productName>
+               <ns0:price>99</ns0:price>
+               <ns0:quantity>10</ns0:quantity>
+            </ns0:item>
+         </ns0:items>
+      </ns0:PurchaseOrder>
+   </soap:Body>
+</soap:Envelope>

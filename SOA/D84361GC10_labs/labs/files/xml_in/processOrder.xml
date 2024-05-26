@@ -1,0 +1,27 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+ <soap:Body xmlns:ns1="http://www.example.org/ns/orderproc">
+  <ns1:order>
+   <ns1:customerId>1</ns1:customerId>
+   <ns1:orderId>1001</ns1:orderId>
+   <ns1:payMethod>credit</ns1:payMethod>
+   <ns1:shipMethod>two_day</ns1:shipMethod>
+   <ns1:carrier></ns1:carrier>   
+   <ns1:orderTotal>6000</ns1:orderTotal>
+   <ns1:status>initial</ns1:status>
+   <ns1:creditCard>
+      <ns1:cardType>VISTA</ns1:cardType>
+      <ns1:cardNumber>1234-1234-1234-1234</ns1:cardNumber>
+   </ns1:creditCard>
+   <ns1:items>
+      <ns1:inStock>true</ns1:inStock>
+      <ns1:item>
+         <ns1:prodId>SKU106</ns1:prodId>
+         <ns1:prodName>Signature Guitar</ns1:prodName>
+         <ns1:price>3000</ns1:price>
+         <ns1:qty>2</ns1:qty>
+         <ns1:itemTotal>6000</ns1:itemTotal>
+      </ns1:item>    
+   </ns1:items>
+  </ns1:order>
+ </soap:Body>
+</soap:Envelope>

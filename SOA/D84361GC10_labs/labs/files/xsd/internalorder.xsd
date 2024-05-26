@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org/ns/intorder"
+            targetNamespace="http://www.example.org/ns/intorder"
+            elementFormDefault="qualified">
+  <xsd:element name="order" type="orderType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="orderType">
+    <xsd:sequence>
+      <xsd:element name="customerId" type="xsd:string"/>
+      <xsd:element name="orderId" type="xsd:string"/>
+      <xsd:element name="payMethod" type="payMethodType"/>
+      <xsd:element name="shipMethod" type="shipMethodType"/>
+      <xsd:element name="orderTotal" type="xsd:decimal"/>
+      <xsd:element name="status" type="xsd:string"/>
+      <xsd:element name="creditCard" type="ccInfoType" minOccurs="0"/>
+      <xsd:element name="items">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="inStock" type="xsd:boolean"/>
+            <xsd:element name="item" type="itemType" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="itemType">
+    <xsd:sequence>
+      <xsd:element name="prodId" type="xsd:string"/>
+      <xsd:element name="prodName" type="xsd:string"/>
+      <xsd:element name="price" type="xsd:decimal"/>
+      <xsd:element name="qty" type="xsd:int"/>
+      <xsd:element name="itemTotal" type="xsd:decimal"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ccInfoType">
+    <xsd:sequence>
+      <xsd:element name="cardType" type="xsd:string"/>
+      <xsd:element name="cardNumber" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="payMethodType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="credit"/>
+      <xsd:enumeration value="paypal"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="shipMethodType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="next_day"/>
+      <xsd:enumeration value="two_day"/>
+      <xsd:enumeration value="five_day"/>
+      <xsd:enumeration value="international"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

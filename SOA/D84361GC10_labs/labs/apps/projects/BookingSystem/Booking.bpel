@@ -1,0 +1,128 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Jun 08 20:12:39 PDT 2011
+  Author:  rpinkert
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="Booking"
+               targetNamespace="http://xmlns.oracle.com/Projects/BookingSystem/Booking"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/Projects/BookingSystem/Booking"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ns1="http://www.example.org/ns/enroll"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer">
+
+    <import namespace="http://xmlns.oracle.com/Projects/BookingSystem/Booking" location="Booking.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
+            ui:processWSDL="true"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="booking_client" partnerLinkType="client:Booking" myRole="BookingProvider"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:BookingRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:BookingResponseMessage"/>
+    <variable name="faultVariable" messageType="client:BookingFaultMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in Booking.wsdl) -->
+    <receive name="receiveInput" partnerLink="booking_client" portType="client:Booking" operation="process" variable="inputVariable" createInstance="yes"/>
+
+    <!-- Generate reply to synchronous request -->
+    <if name="If">
+      <documentation>enroll or cancel</documentation>
+      <condition>$inputVariable.payload/ns1:type ='ENROLLMENT' or  $inputVariable.payload/ns1:type ='CANCELLATION'</condition>
+      <assign name="Assign_OK">
+        <copy>
+          <from>concat($inputVariable.payload/ns1:type,' COMPLETED')</from>
+          <to>$outputVariable.payload</to>
+        </copy>
+      </assign>
+      <elseif>
+        <documentation>payment</documentation>
+        <condition>$inputVariable.payload/ns1:type = "PAYMENT"</condition>
+        <if name="If">
+          <documentation>less than 5k</documentation>
+          <condition>number($inputVariable.payload/ns1:amount) &lt; 5000</condition>
+          <assign name="Assign_OK">
+            <copy>
+              <from>concat($inputVariable.payload/ns1:type,' COMPLETED')</from>
+              <to>$outputVariable.payload</to>
+            </copy>
+          </assign>
+          <else>
+            <documentation>return fault</documentation>
+            <sequence name="Sequence2">
+              <assign name="Assign_Fault">
+                <copy>
+                  <from>'Payment invalid or excessive.'</from>
+                  <to>$faultVariable.payload</to>
+                </copy>
+              </assign>
+              <reply name="replyFault" faultName="client:paymentFault"
+                     variable="faultVariable" partnerLink="booking_client"
+                     portType="client:Booking" operation="process"/>
+              <exit name="Exit"/>
+            </sequence>
+          </else>
+        </if>
+      </elseif>
+      <else>
+        <documentation>invalid</documentation>
+        <sequence name="Sequence1">
+          <assign name="Assign_invalid">
+            <copy>
+              <from>concat('Transaction type ',$inputVariable.payload/ns1:type,' INVALID.')</from>
+              <to>$outputVariable.payload</to>
+            </copy>
+          </assign>
+        </sequence>
+      </else>
+    </if>
+    <reply name="replyOutput" partnerLink="booking_client" portType="client:Booking" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

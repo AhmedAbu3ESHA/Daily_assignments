@@ -1,0 +1,12 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    	<soap:Body xmlns:ns1="http://www.example.org/ns/enroll">
+        		<ns1:enrollmentRequest>
+            			<ns1:Id>10</ns1:Id>
+            			<ns1:type>ENROLLMENT</ns1:type>
+            			<ns1:student>Elvis Phillips</ns1:student>
+            			<ns1:course>SOA</ns1:course>
+            			<ns1:cardNumber>9090-8080-7070-6060</ns1:cardNumber>
+            			<ns1:amount>4000</ns1:amount>
+        </ns1:enrollmentRequest>
+    </soap:Body>
+</soap:Envelope>

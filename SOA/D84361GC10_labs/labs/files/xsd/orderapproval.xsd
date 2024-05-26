@@ -1,0 +1,19 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/ns/approvalrules"
+     targetNamespace="http://www.example.org/ns/approvalrules" elementFormDefault="qualified">
+    <xsd:element name="approvalandiscount">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="approvalRequired" type="xsd:boolean"/>
+                <xsd:element name="discount" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="price">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="totalPrice" type="xsd:decimal"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

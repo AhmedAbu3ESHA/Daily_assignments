@@ -1,0 +1,18 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+     <soap:Body xmlns:ns1="http://www.example.org/ns/store">
+          <ns1:StoreRequest>
+               <ns1:product>
+                    <ns1:prodId>SKU101</ns1:prodId>
+                    <ns1:qtyOrdered>3</ns1:qtyOrdered>
+               </ns1:product>
+               <ns1:product>
+                    <ns1:prodId>SKU102</ns1:prodId>
+                    <ns1:qtyOrdered>2</ns1:qtyOrdered>
+               </ns1:product>
+               <ns1:product>
+                    <ns1:prodId>SKU200</ns1:prodId>
+                    <ns1:qtyOrdered>1</ns1:qtyOrdered>
+               </ns1:product>
+          </ns1:StoreRequest>
+     </soap:Body>
+</soap:Envelope>

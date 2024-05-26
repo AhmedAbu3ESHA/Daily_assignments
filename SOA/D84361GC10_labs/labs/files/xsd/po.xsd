@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:po="http://www.example.org/ns/porder"
+            targetNamespace="http://www.example.org/ns/porder"
+            elementFormDefault="qualified">
+  <xsd:element name="PurchaseOrder" type="po:PurchaseOrderType"/>
+  
+  <xsd:complexType name="PurchaseOrderType">
+    <xsd:sequence>
+      <xsd:element name="custID" type="xsd:string"/>
+      <xsd:element name="ID" type="xsd:string"/>
+      <xsd:element name="payOption" type="po:payOptionType"/>
+      <xsd:element name="shipChoice" type="po:shipOptionType"/>
+      <xsd:element name="status" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="ccType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ccNumber" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="items">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="item" type="po:OrderItemType"
+                         maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OrderItemType">
+    <xsd:sequence>
+      <xsd:element name="productId" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="productName" type="xsd:string"/>
+      <xsd:element name="price" type="xsd:decimal" minOccurs="1"/>
+      <xsd:element name="quantity" type="xsd:int" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="shipOptionType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="next_day"/>
+      <xsd:enumeration value="two_day"/>
+      <xsd:enumeration value="five_day"/>
+      <xsd:enumeration value="international"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="payOptionType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="credit"/>
+      <xsd:enumeration value="paypal"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

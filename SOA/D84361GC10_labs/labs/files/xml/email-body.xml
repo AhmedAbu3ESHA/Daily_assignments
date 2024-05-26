@@ -1,0 +1,1 @@
+concat('Your order status is ',$outputVariable.payload/ns1:status,'. Thank you for shopping with us. For more information contact customer support on 1-800-MUSICFANS.')

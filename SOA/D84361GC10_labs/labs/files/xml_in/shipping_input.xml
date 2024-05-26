@@ -1,0 +1,23 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Body>
+<Shipping xmlns="http://www.oracle.com/soasample">
+   <OrderNumber>1001</OrderNumber>
+   <Address>
+      <FirstName>Elvis</FirstName>
+      <LastName>Phillips</LastName>
+      <AddressLine>706 Union St</AddressLine>
+      <City>Memphis</City>
+      <State>TN</State>
+      <ZipCode>38103</ZipCode>
+      <PhoneNumber>800-123-4567</PhoneNumber>
+   </Address>
+   <ShippingSpeed>TWO_DAY</ShippingSpeed>
+   <ShippingProvider>
+      <Name>RED SHIPPER</Name>
+   </ShippingProvider>
+   <ShipMethod>87</ShipMethod>
+   <Status>approved</Status>
+</Shipping>
+  </soap:Body>
+</soap:Envelope>
+
