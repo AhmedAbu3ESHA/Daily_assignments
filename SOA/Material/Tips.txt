@@ -1,0 +1,27 @@
+Tips 
+===========
+Integrated server issue:
+----------------------------
+Option 1:
+1-Go to Oracle_Home\jdeveloper\ide\bin folder.
+2-Edit ide.conf file.
+3-Under # Other OSGi configuration options for locating bundles and boot delegation section (or any other section) add the following line
+ AddVMOption  -Djdk.lang.Process.allowAmbiguousCommands=true
+4-Restart JDeveloper.
+
+Workaround: in case option 1 didn't work
+Set parameters in enviroment ide.conf: -Djdk.lang.Process.allowAmbiguousCommands=true 
+set JAVA_TOOL_OPTIONS=-Djdk.lang.Process.allowAmbiguousCommands=true
+
+virtual machine issue
+-------------------------
+1-product.conf to set jdk path C:\Users\user\AppData\Roaming\JDeveloper\12.2.1.4.0
+2-add path of jdk in path
+3-home folder for jdk and oracle home should have full control permission.
+
+
+Width*height and Font
+----------------------
+C:\Users\user\AppData\Roaming\JDeveloper\system12.2.1.4.42.190911.2248\o.jdeveloper
+ide.properties
+

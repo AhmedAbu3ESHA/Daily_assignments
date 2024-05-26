@@ -1,0 +1,9 @@
+In the tree on the left, in the Databases Tab we add a new connection, add the necessary values ​​as shown below:
+
+Connection Type: Java DB / Apache Derby
+Username: soainfra
+Password: leave it empty
+Driver Class: org.apache.derby.jdbc.ClientDriver
+Database Name: soainfra
+Host Name: localhost
+Port: 1527
