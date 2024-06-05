@@ -1,0 +1,59 @@
+<soas:Order  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soas="http://www.oracle.com/soasample">
+	<soas:Billing >
+		<soas:CardPaymentType>1</soas:CardPaymentType>
+		<soas:CardNum>1234123412341234</soas:CardNum>
+		<soas:ExpireDate>0315</soas:ExpireDate>
+		<soas:CardName>AMEX</soas:CardName>
+		<soas:BillingAddress>
+			 <soas:FirstName>Daniel</soas:FirstName>
+		               <soas:LastName>Day-Lewis</soas:LastName>
+		         	 <soas:AddressLine>555 Beverly Lane</soas:AddressLine>
+			<soas:City>Hollywood</soas:City>
+			<soas:State>CA</soas:State>
+			<soas:ZipCode>12345</soas:ZipCode>
+			<soas:PhoneNumber>5127691108</soas:PhoneNumber>
+		</soas:BillingAddress>
+	   </soas:Billing>
+	<soas:Shipping>
+		<soas:Address>
+		              <soas:FirstName>Daniel</soas:FirstName>
+		               <soas:LastName>Day-Lewis</soas:LastName>
+		               <soas:AddressLine>555 Beverly Lane</soas:AddressLine>
+			<soas:City>Hollywood</soas:City>
+			<soas:State>CA</soas:State>
+			<soas:ZipCode>12345</soas:ZipCode>
+			<soas:PhoneNumber>5127691108</soas:PhoneNumber>
+		</soas:Address>
+		<soas:ShippingSpeed>Standard</soas:ShippingSpeed>
+  	</soas:Shipping>
+	<soas:Email>daniel@localhost</soas:Email>
+	<soas:Items>
+	             <soas:Item >
+	      	         	 <soas:SKU>32779</soas:SKU>
+	      	         	 <soas:Quantity>5</soas:Quantity>
+	      	         	 <soas:UnitPrice>4.72</soas:UnitPrice>
+	      	        	 <soas:Brand>Slaker</soas:Brand>
+	      	        	 <soas:Model>Water bottle</soas:Model>
+	      	        	 <soas:Category>2008</soas:Category>
+	      	       		 <soas:Description>Slaker Water Bottle</soas:Description>
+	             </soas:Item>
+	      	     <soas:Item >
+	      	     	         <soas:SKU>30421</soas:SKU>
+	      	     	         <soas:Quantity>2</soas:Quantity>
+	      	     	         <soas:UnitPrice>10.72</soas:UnitPrice>
+	      	     	         <soas:Brand>Grand Prix</soas:Brand>
+	      	     	         <soas:Model>Bicycle Tires</soas:Model>
+	      	     	         <soas:Category>2005</soas:Category>
+	      	     	         <soas:Description>Grand Prix Bicycle Tires</soas:Description>
+	      	     </soas:Item>
+	      	     <soas:Item >
+	      	     	         <soas:SKU>32861</soas:SKU>
+	      	     	         <soas:Quantity>1</soas:Quantity>
+	      	     	         <soas:UnitPrice>60.72</soas:UnitPrice>
+	      	     	         <soas:Brand>Safe-T</soas:Brand>
+	      	     	         <soas:Model>Bicycle helmet</soas:Model>
+	      	     	         <soas:Category>1829</soas:Category>
+	      	     	         <soas:Description>Safe-T Helmet</soas:Description>
+	      	     </soas:Item>
+	</soas:Items>
+</soas:Order>

@@ -1,0 +1,16 @@
+<ns1:PaymentInfo xmlns:ns1="http://www.oracle.com/soasample">
+		<ns1:CardPaymentType>0</ns1:CardPaymentType>
+		<ns1:CardNum>4321432143214321</ns1:CardNum>
+		<ns1:ExpireDate>0316</ns1:ExpireDate>
+		<ns1:CardName>VISA</ns1:CardName>
+		<ns1:BillingAddress>
+				<ns1:FirstName>Lawrence</ns1:FirstName>
+				<ns1:LastName>Jennifer</ns1:LastName>
+				<ns1:AddressLine>9876 Beverly Lane</ns1:AddressLine>
+				<ns1:City>Hollywood</ns1:City>
+				<ns1:State>CA</ns1:State>
+				<ns1:ZipCode>12345</ns1:ZipCode>
+				<ns1:PhoneNumber>5127691108</ns1:PhoneNumber>
+		</ns1:BillingAddress>
+		<ns1:AuthorizationAmount>500</ns1:AuthorizationAmount>
+</ns1:PaymentInfo> 
