@@ -1,0 +1,16 @@
+<ns1:PaymentInfo xmlns:ns1="http://osb.training.org/types">
+		<ns1:CardPaymentType>0</ns1:CardPaymentType>
+		<ns1:ccNumber>1234123412341234</ns1:ccNumber>
+		<ns1:ExpireDate>0316</ns1:ExpireDate>
+		<ns1:ccName>AMEX</ns1:ccName>
+		<ns1:BillingAddress>
+				<ns1:FirstName>Daniel</ns1:FirstName>
+				<ns1:LastName>Day-Lewis</ns1:LastName>
+				<ns1:AddressLine>555 Beverly Lane</ns1:AddressLine>
+				<ns1:City>Hollywood</ns1:City>
+				<ns1:State>CA</ns1:State>
+				<ns1:ZipCode>12345</ns1:ZipCode>
+				<ns1:PhoneNumber>5127691108</ns1:PhoneNumber>
+		</ns1:BillingAddress>
+		<ns1:AuthorizationAmount>10000</ns1:AuthorizationAmount>
+</ns1:PaymentInfo> 

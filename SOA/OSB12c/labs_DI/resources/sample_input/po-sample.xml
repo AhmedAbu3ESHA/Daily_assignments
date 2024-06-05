@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PurchaseOrder xmlns="http://www.oracle.com/fileorder">
+  <Billing>
+    <CardPaymentType>0</CardPaymentType>
+    <CardNumber>4321432143214321</CardNumber>
+    <ExpireDate>0316</ExpireDate>
+    <CardName>VISA</CardName>
+    <BillingAddress>
+      <FirstName>Lawrence</FirstName>
+      <LastName>Jennifer</LastName>
+      <AddressLine>9876 Beverly Lane</AddressLine>
+      <City>Hollywood</City>
+      <State>CA</State>
+      <ZipCode>12345</ZipCode>
+      <PhoneNumber>5127691108</PhoneNumber>
+    </BillingAddress>
+  </Billing>
+  <Shipping>
+    <Address>
+      <FirstName>Lawrence</FirstName>
+      <LastName>Jennifer</LastName>
+      <AddressLine>9876 Beverly Lane</AddressLine>
+      <City>Hollywood</City>
+      <State>CA</State>
+      <ZipCode>12345</ZipCode>
+      <PhoneNumber>5127691108</PhoneNumber>
+    </Address>
+    <ShippingSpeed>Standard</ShippingSpeed>
+  </Shipping>
+  <Email>jl@localhost</Email>
+  <Items>
+    <Item >
+      <SKU>32779</SKU>
+      <Qty>5</Qty>
+      <UnitPrice>4.72</UnitPrice>
+      <Brand>Slaker</Brand>
+      <Model>Water bottle</Model>
+      <Category>2008</Category>
+      <Description>Slaker Water Bottle</Description>
+    </Item>
+    <Item >
+      <SKU>30421</SKU>
+      <Qty>2</Qty>
+      <UnitPrice>10.72</UnitPrice>
+      <Brand>Grand Prix</Brand>
+      <Model>Bicycle Tires</Model>
+      <Category>2005</Category>
+      <Description>Grand Prix Bicycle Tires</Description>
+    </Item>
+    <Item >
+      <SKU>32861</SKU>
+      <Qty>1</Qty>
+      <UnitPrice>60.72</UnitPrice>
+      <Brand>Safe-T</Brand>
+      <Model>Bicycle helmet</Model>
+      <Category>1829</Category>
+      <Description>Safe-T Helmet</Description>
+    </Item>
+  </Items>
+</PurchaseOrder>

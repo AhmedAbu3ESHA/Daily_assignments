@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions
+     name="GenericSOAPService"
+     targetNamespace="http://xmlns.oracle.com/soa/generic/soap"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://xmlns.oracle.com/soa/generic/soap"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+             targetNamespace="http://xmlns.oracle.com/soa/generic/soap" elementFormDefault="qualified">
+            <element name="Request">
+                <complexType>
+                    <sequence>
+                        <element name="payload" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+    <message name="GenericSOAPService_Request">
+        <part name="payload" element="tns:Request"/>
+    </message>
+    <portType name="GenericSOAPServicePortType">
+        <operation name="process">
+            <input message="tns:GenericSOAPService_Request"/>
+        </operation>
+    </portType>
+    <binding name="HttpSoapBinding" type="tns:GenericSOAPServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="process">
+            <soap:operation soapAction="http://xmlns.oracle.com/soa/generic/soap/process"/>
+            <input>
+                <soap:body use="literal" parts="payload"/>
+            </input>
+        </operation>
+    </binding>
+    <service name="GenericSOAPService">
+        <port name="GenericSOAPPort" binding="tns:HttpSoapBinding">
+            <soap:address location="TBD"/>
+        </port>
+    </service>
+</definitions>
