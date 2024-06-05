@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://osb.training.org/types"
+           targetNamespace="http://osb.training.org/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:simpleType name="MoneyType">
+    <xs:restriction base="xs:double"/>
+  </xs:simpleType>
+  <xs:simpleType name="NameType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AddressType">
+        <xs:sequence>
+            <xs:element name="FirstName" type="NameType"/>
+            <xs:element name="LastName" type="NameType" minOccurs="1"/>
+            <xs:sequence minOccurs="1" maxOccurs="3">
+                <xs:element name="AddressLine">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="180"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+            <xs:element name="City">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="25"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="State">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ZipCode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                        <xs:minLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="PhoneNumber" minOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+  </xs:complexType>
+    
+  <xs:complexType name="PaymentType">
+    <xs:sequence>
+      <xs:element name="CardPaymentType">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:pattern value="[0-5]"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ccNumber">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="16"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ExpireDate">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="4"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ccName">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="BillingAddress" type="AddressType"/>
+      <xs:element name="AuthorizationDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="AuthorizationAmount" type="MoneyType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentStatusType">
+    <xs:sequence>
+      <xs:element name="Status" type="xs:string">
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+    
+  <xs:element name="PaymentInfo" type="PaymentType">
+    <xs:annotation>
+      <xs:documentation>The canonical order element</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PaymentStatus" type="PaymentStatusType">
+    <xs:annotation>
+      <xs:documentation>The canonical order element</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema>

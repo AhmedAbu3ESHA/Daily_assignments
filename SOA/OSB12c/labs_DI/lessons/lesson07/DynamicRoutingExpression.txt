@@ -1,0 +1,4 @@
+<ctx:route>
+    <ctx:service isProxy='false'>{$varConfig/CardName[@value=$varCardName]/Service/text()}</ctx:service>
+    <ctx:operation>{$operation}</ctx:operation>
+</ctx:route>
